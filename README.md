@@ -6,7 +6,7 @@
 [![Promote STAGING](https://github.com/igor88gomes/electricity-price/actions/workflows/promote-staging.yaml/badge.svg?branch=main&event=workflow_dispatch)](https://github.com/igor88gomes/electricity-price/actions/workflows/promote-staging.yaml)
 [![Multi-arch](https://img.shields.io/badge/multi--arch-amd64%20%7C%20arm64-blue)](#)
 [![GHCR image](https://img.shields.io/badge/GHCR-image-blue)](https://github.com/users/igor88gomes/packages/container/package/electricity-price)
-![Trivy](https://img.shields.io/badge/Trivy-image%20scan-red)
+![Trivy](https://img.shields.io/badge/Trivy-security%20scan-enabled-blue)
 
 🇸🇪 Swedish version:
 👉 [Read in Swedish](README.sv.md)
