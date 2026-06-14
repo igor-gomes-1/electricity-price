@@ -128,8 +128,16 @@ jobs:
             echo "HAS_SARIF=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Upload Trivy SARIF to GitHub Security
+      - name: Upload Trivy SARIF artifact
         if: always() && steps.sarif_meta.outputs.HAS_SARIF == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: trivy-image-sarif
+          path: trivy-image.sarif
+          retention-days: 14
+
+      - name: Upload Trivy SARIF to GitHub Security
+        if: always() && steps.sarif_meta.outputs.HAS_SARIF == 'true' && github.event.repository.private == false
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: trivy-image.sarif
