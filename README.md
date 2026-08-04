@@ -1,11 +1,11 @@
-[![Version](https://img.shields.io/github/v/tag/igor88gomes/electricity-price?label=version&sort=semver&color=%238b5cf6)](https://github.com/igor88gomes/electricity-price/tags)
-[![CI – main](https://github.com/igor88gomes/electricity-price/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/igor88gomes/electricity-price/actions/workflows/ci.yaml)
-[![Coverage](https://github.com/igor88gomes/electricity-price/raw/main/.github/badges/coverage.svg)](https://github.com/igor88gomes/electricity-price/actions/workflows/ci.yaml)
-[![Secret Scan](https://github.com/igor88gomes/electricity-price/actions/workflows/secret-scan.yaml/badge.svg?branch=main)](https://github.com/igor88gomes/electricity-price/actions/workflows/secret-scan.yaml)
-[![CD – DEV](https://github.com/igor88gomes/electricity-price/actions/workflows/docker-publish.yaml/badge.svg?branch=main)](https://github.com/igor88gomes/electricity-price/actions/workflows/docker-publish.yaml)
-[![Promote STAGING](https://github.com/igor88gomes/electricity-price/actions/workflows/promote-staging.yaml/badge.svg?branch=main&event=workflow_dispatch)](https://github.com/igor88gomes/electricity-price/actions/workflows/promote-staging.yaml)
+[![Version](https://img.shields.io/github/v/tag/igor-gomes-u/electricity-price?label=version&sort=semver&color=%238b5cf6)](https://github.com/igor-gomes-u/electricity-price/tags)
+[![CI – main](https://github.com/igor-gomes-u/electricity-price/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/igor-gomes-u/electricity-price/actions/workflows/ci.yaml)
+[![Coverage](https://github.com/igor-gomes-u/electricity-price/raw/main/.github/badges/coverage.svg)](https://github.com/igor-gomes-u/electricity-price/actions/workflows/ci.yaml)
+[![Secret Scan](https://github.com/igor-gomes-u/electricity-price/actions/workflows/secret-scan.yaml/badge.svg?branch=main)](https://github.com/igor-gomes-u/electricity-price/actions/workflows/secret-scan.yaml)
+[![CD – DEV](https://github.com/igor-gomes-u/electricity-price/actions/workflows/docker-publish.yaml/badge.svg?branch=main)](https://github.com/igor-gomes-u/electricity-price/actions/workflows/docker-publish.yaml)
+[![Promote STAGING](https://github.com/igor-gomes-u/electricity-price/actions/workflows/promote-staging.yaml/badge.svg?branch=main&event=workflow_dispatch)](https://github.com/igor-gomes-u/electricity-price/actions/workflows/promote-staging.yaml)
 [![Multi-arch](https://img.shields.io/badge/multi--arch-amd64%20%7C%20arm64-blue)](#)
-[![GHCR image](https://img.shields.io/badge/GHCR-image-blue)](https://github.com/users/igor88gomes/packages/container/package/electricity-price)
+[![GHCR image](https://img.shields.io/badge/GHCR-image-blue)](https://github.com/users/igor-gomes-u/packages/container/package/electricity-price)
 ![Trivy](https://img.shields.io/badge/Trivy-image%20scan-red)
 
 🇸🇪 Swedish version:
@@ -39,7 +39,7 @@ A DevOps-focused project demonstrating a complete delivery workflow, including C
 
 ## Related Repository
 
-**GitOps (deployment & environment promotion):** [electricity-price-gitops](https://github.com/igor88gomes/electricity-price-gitops)
+**GitOps (deployment & environment promotion):** [electricity-price-gitops](https://github.com/igor-gomes-u/electricity-price-gitops)
 
 ## End-to-end CI/CD and GitOps Architecture
 
@@ -124,7 +124,7 @@ The Flask-based web application allows users to search for electricity prices fo
 ### 1️⃣ Clone the project
 
 ```bash
-git clone https://github.com/igor88gomes/electricity-price.git
+git clone https://github.com/igor-gomes-u/electricity-price.git
 cd electricity-price
 ```
 
