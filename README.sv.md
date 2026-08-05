@@ -53,7 +53,7 @@ Ett DevOps-fokuserat projekt som demonstrerar ett komplett leveransflöde, inklu
 >
 > **Underhåll:** Dependabot används för schemalagda och kontrollerade uppdateringar av Python-beroenden, GitHub Actions och Docker base image.
 >
-> **Container build:** Imagen byggs via Dockerfile (non-root, pinned base image digest och healthcheck) och används både lokalt och i CI/CD-flödet.
+> **Container build:** Imagen byggs via en multi-stage Dockerfile med en non-root runtime-image, låst digest för basimagen och health checks. Verktyg som endast används under byggprocessen ingår inte i den slutliga runtime-imagen, vilket minskar attackytan.
 
 ## Projektöversikt
 
@@ -241,7 +241,7 @@ electricity-price/
 ├── .gitleaks.toml          # Regler för secret scanning (Gitleaks)
 ├── .ruff.toml              # Konfiguration för Ruff (lint och format)
 ├── docker-compose.yaml     # Lokal körning med Docker Compose
-├── Dockerfile              # Bygger Docker-image för Flask-applikationen
+├── Dockerfile              # Multi-stage build för produktionsimagen
 ├── pytest.ini              # Pytest-konfiguration (plugins, options)
 ├── requirements.txt        # Runtime-beroenden för applikationen
 ├── requirements-test.txt   # Test- och CI-beroenden

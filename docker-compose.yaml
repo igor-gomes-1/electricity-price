@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/igor-gomes-u/electricity-price:v1.3.4
+    image: ghcr.io/igor-gomes-u/electricity-price:v1.3.6
     ports:
       - "38080:8000"
     restart: unless-stopped

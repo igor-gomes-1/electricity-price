@@ -53,7 +53,7 @@ A DevOps-focused project demonstrating a complete delivery workflow, including C
 >
 > **Maintenance:** Dependabot is used for scheduled and controlled updates of Python dependencies, GitHub Actions and the Docker base image.
 >
-> **Container build:** The image is built via a Dockerfile (non-root, pinned base image digest and healthcheck) and is used both locally and in the CI/CD pipeline.
+> **Container build:** The image is built via a multi-stage Dockerfile using a non-root runtime image, pinned base image digest and health checks. Build-time tooling is excluded from the final runtime image to reduce the attack surface.
 
 ## Project Overview
 
@@ -240,7 +240,7 @@ electricity-price/
 ├── .gitleaks.toml          # Rules for secret scanning (Gitleaks)
 ├── .ruff.toml              # Configuration for Ruff (lint and format)
 ├── docker-compose.yaml     # Local execution with Docker Compose
-├── Dockerfile              # Builds Docker image for the Flask application
+├── Dockerfile              # Multi-stage build for the production runtime image
 ├── pytest.ini              # Pytest configuration (plugins, options)
 ├── requirements.txt        # Runtime dependencies for the application
 ├── requirements-test.txt   # Test and CI dependencies
