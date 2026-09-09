@@ -183,7 +183,7 @@ Build, säkerhetskontroller och publicering av container image till GitHub Conta
 
 Promotioner initieras från application repository via `repository_dispatch`. Varje miljö har ett dedikerat workflow, och promotion sker stegvis:
 
-- DEV bygger och publicerar artefakten och triggar STAGING.  
+- DEV bygger, publicerar och validerar artefakten innan STAGING triggas.
 - STAGING promouterar och validerar artefakten samt förbereder en release candidate.  
 - PROD promouterar den validerade release candidate via en SemVer-baserad release.  
 
@@ -200,10 +200,11 @@ Dessa workflows triggar events i GitOps repository, där Pull Requests skapas. N
 – linting, formatting checks, tester och coverage  
 
 #### **CD – DEV (`docker-publish.yaml`)**
-  - Bygger och publicerar en immutable multi-arch image till GHCR  
-  - Genererar SBOM och kör Trivy security scans  
-  - Skickar `update-dev` event till GitOps  
-  - ➝ I GitOps repository: en Pull Request skapas och auto-mergas i DEV  
+  - Bygger och publicerar en immutable multi-arch image till GHCR
+  - Kör ett smoke test av den publicerade containerimagen via dess digest och validerar hälsostatus, Prometheus-metrik och applikationens startvy
+  - Genererar SBOM och kör Trivy security scans
+  - Skickar `update-dev` event till GitOps
+  - ➝ I GitOps repository: en Pull Request skapas och auto-mergas i DEV
   - Triggar nästa steg i promotion-flödet (STAGING workflow)
 
 #### **Promote STAGING (`promote-staging.yaml`)**
