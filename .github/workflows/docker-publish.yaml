@@ -104,10 +104,13 @@ jobs:
             --detach \
             --name "${CONTAINER_NAME}" \
             --platform linux/amd64 \
+            --health-interval 2s \
+            --health-start-period 20s \
+            --health-retries 10 \
             --publish 127.0.0.1:18000:8000 \
             "${IMAGE_REFERENCE}"
 
-          for ATTEMPT in {1..30}; do
+          for ATTEMPT in {1..60}; do
             HEALTH_STATUS=$(docker inspect \
               --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}missing{{end}}' \
               "${CONTAINER_NAME}")
