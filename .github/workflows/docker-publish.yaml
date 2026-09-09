@@ -75,6 +75,76 @@ jobs:
           path: image-digest.txt
           retention-days: 7
 
+      - name: Smoke test published container
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          CONTAINER_NAME="electricity-price-smoke"
+          IMAGE_REFERENCE="${IMAGE_REPO}@${{ steps.build.outputs.digest }}"
+
+          cleanup() {
+            EXIT_CODE=$?
+            trap - EXIT
+
+            if [[ "${EXIT_CODE}" -ne 0 ]]; then
+              echo "Smoke test failed. Container logs:"
+              docker logs "${CONTAINER_NAME}" 2>/dev/null || true
+            fi
+
+            docker rm -f "${CONTAINER_NAME}" >/dev/null 2>&1 || true
+            exit "${EXIT_CODE}"
+          }
+
+          trap cleanup EXIT
+
+          echo "Starting ${IMAGE_REFERENCE}"
+
+          docker run \
+            --detach \
+            --name "${CONTAINER_NAME}" \
+            --platform linux/amd64 \
+            --publish 127.0.0.1:18000:8000 \
+            "${IMAGE_REFERENCE}"
+
+          for ATTEMPT in {1..30}; do
+            HEALTH_STATUS=$(docker inspect \
+              --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}missing{{end}}' \
+              "${CONTAINER_NAME}")
+
+            echo "Health check attempt ${ATTEMPT}: ${HEALTH_STATUS}"
+
+            if [[ "${HEALTH_STATUS}" == "healthy" ]]; then
+              break
+            fi
+
+            if [[ "${HEALTH_STATUS}" == "unhealthy" ]]; then
+              echo "Container reported an unhealthy status."
+              exit 1
+            fi
+
+            if [[ "${ATTEMPT}" -eq 30 ]]; then
+              echo "Container did not become healthy within the expected time."
+              exit 1
+            fi
+
+            sleep 2
+          done
+
+          curl --fail --silent --show-error \
+            http://127.0.0.1:18000/healthz
+
+          METRICS_RESPONSE=$(curl --fail --silent --show-error \
+            http://127.0.0.1:18000/metrics)
+
+          grep --quiet "app_http_requests_total" <<< "${METRICS_RESPONSE}"
+
+          curl --fail --silent --show-error \
+            --output /dev/null \
+            http://127.0.0.1:18000/
+
+          echo "Container smoke test passed."
+
       - name: Cache Trivy DB
         if: always()
         uses: actions/cache@v5
