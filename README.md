@@ -182,7 +182,7 @@ Build, security checks, and publishing of the container image to GitHub Containe
 
 Promotions are initiated from the application repository using `repository_dispatch`. Each environment has a dedicated workflow, and promotion is orchestrated step-by-step:
 
-- DEV builds and publishes the initial artifact and triggers STAGING.
+- DEV builds, publishes and validates the initial artifact before triggering STAGING.
 - STAGING promotes and validates the artifact and prepares the release candidate.
 - PROD promotes the validated release candidate via a tagged release.
 
@@ -199,10 +199,11 @@ These workflows trigger events in the GitOps repository, where Pull Requests are
 – linting, formatting checks, tests and coverage  
 
 #### **CD – DEV (`docker-publish.yaml`)**
-  - Build and publish immutable multi-arch image to GHCR  
-  - Generate SBOM and run Trivy security scans  
-  - Dispatch `update-dev` event to GitOps  
-  - ➝ In the GitOps repository: a Pull Request is created and auto-merged in DEV  
+  - Build and publish immutable multi-arch image to GHCR
+  - Run a smoke test against the published image digest, validating health status, Prometheus metrics and the application home page
+  - Generate SBOM and run Trivy security scans
+  - Dispatch `update-dev` event to GitOps
+  - ➝ In the GitOps repository: a Pull Request is created and auto-merged in DEV
   - Triggers the next step in the promotion flow (STAGING workflow)
 
 #### **Promote STAGING (`promote-staging.yaml`)**
